@@ -5,9 +5,10 @@
 
 [node name="main_game" type="Node2D"]
 
-[node name="Player" parent="." instance=ExtResource("1_s3esy")]
-position = Vector2(300, 300)
-
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(299, 108)
+position = Vector2(324.00003, 320.5)
+scale = Vector2(5, 5.008)
 texture = ExtResource("2_72e8q")
+
+[node name="Player" parent="." instance=ExtResource("1_s3esy")]
+position = Vector2(320, 320)
