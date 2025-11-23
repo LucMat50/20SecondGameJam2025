@@ -9,6 +9,8 @@ radius = 7.0
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
 scale = Vector2(2, 2)
+collision_layer = 2
+collision_mask = 5
 script = ExtResource("1_g2els")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -24,3 +26,6 @@ position = Vector2(0, -71.5)
 scale = Vector2(0.2, 0.2)
 color = Color(0, 0, 1, 1)
 texture = ExtResource("3_qhqgy")
+
+[node name="Shooter" type="Node2D" parent="."]
+position = Vector2(0, -7.5)
