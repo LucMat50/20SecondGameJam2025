@@ -7,6 +7,7 @@ extends Node2D
 
 var asteroid_scene = preload("res://scenes/asteroid.tscn")
 
+var lives = 3
 var score := 0:
 	set(value):
 		score = value
@@ -14,7 +15,9 @@ var score := 0:
 
 func _ready():
 	score = 0
+	lives = 3
 	player.connect("bullet_shot", _on_player_bullet_shot)
+	player.connect("died", _on_player_died)
 	
 	for asteroid in asteroids.get_children():
 		asteroid.connect("exploded", _on_asteroid_exploded)
@@ -41,3 +44,9 @@ func _spawn_more(pos, size):
 	another.size = size
 	another.connect("exploded", _on_asteroid_exploded)
 	asteroids.add_child(another)
+
+func _on_player_died():
+	lives -= 1
+	if lives <= 0:
+		print("game over")
+		pass

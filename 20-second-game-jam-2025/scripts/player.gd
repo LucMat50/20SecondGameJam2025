@@ -1,9 +1,9 @@
-extends CharacterBody2D
+class_name Player extends CharacterBody2D
 
 # NORMAL VARIABLES
 var shoot_coolDown = false
 var angy = false
-var lives = 3
+var alive = true
 
 # EXPORT VARIABLES
 @export var speed = 400
@@ -13,12 +13,14 @@ var lives = 3
 # ONREADY VARIABLES
 @onready var shooter = $Shooter
 @onready var ship = $Sprite2D
+@onready var animation = $Sprite2D/AnimationPlayer
 
 # SCENES
 var bullet_scene = preload("res://scenes/bullet.tscn")
 
 # SIGNALS
 signal bullet_shot(bullet)
+signal died
 
 func _process(_delta: float) -> void:
 	if Input.is_action_pressed("shoot"):
@@ -72,3 +74,11 @@ func angy_face():
 		ship.frame = 1
 	else:
 		ship.frame = 0
+
+func die():
+	if alive:
+		alive = false
+		emit_signal("died")
+		animation.play("blink")
+		await(1)
+		animation.play("RESET")
