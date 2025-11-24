@@ -14,6 +14,7 @@ var alive = true
 @onready var shooter = $Shooter
 @onready var ship = $Sprite2D
 @onready var animation = $Sprite2D/AnimationPlayer
+@onready var collision = $CollisionShape2D
 
 # SCENES
 var bullet_scene = preload("res://scenes/bullet.tscn")
@@ -21,6 +22,7 @@ var bullet_scene = preload("res://scenes/bullet.tscn")
 # SIGNALS
 signal bullet_shot(bullet)
 signal died
+#signal blink_finished
 
 func _process(_delta: float) -> void:
 	if Input.is_action_pressed("shoot"):
@@ -80,5 +82,16 @@ func die():
 		alive = false
 		emit_signal("died")
 		animation.play("blink")
-		await(1)
-		animation.play("RESET")
+		collision.set_deferred("disabled", true)
+
+func respawn(pos):
+	if alive == false:
+		alive = true
+		global_position = pos
+		velocity = Vector2.ZERO
+		collision.set_deferred("disabled", false)
+
+
+func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+	if anim_name == "blink":
+		respawn(global_position)

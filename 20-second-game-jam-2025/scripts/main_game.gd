@@ -6,6 +6,7 @@ extends Node2D
 @onready var hud = $UI/HUD
 
 var asteroid_scene = preload("res://scenes/asteroid.tscn")
+var player_scene = preload("res://scenes/player.tscn")
 
 var lives = 3
 var score := 0:
@@ -47,6 +48,7 @@ func _spawn_more(pos, size):
 
 func _on_player_died():
 	lives -= 1
+	print(lives)
 	if lives <= 0:
 		print("game over")
 		pass

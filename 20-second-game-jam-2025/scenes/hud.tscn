@@ -1,10 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://c4oy5tkixvo7t"]
+[gd_scene load_steps=6 format=3 uid="uid://c4oy5tkixvo7t"]
 
 [ext_resource type="Script" uid="uid://bw3co0kxg0gwp" path="res://scripts/hud.gd" id="1_ahhtf"]
 [ext_resource type="FontFile" uid="uid://cwqwdy7461r4y" path="res://assets/PressStart2P-Regular.ttf" id="2_oo0fn"]
 [ext_resource type="PackedScene" uid="uid://dfv3woh73hi2s" path="res://scenes/life.tscn" id="3_5ysmq"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_oo0fn"]
+font = ExtResource("2_oo0fn")
+font_color = Color(0, 0, 0, 1)
+outline_size = 5
+outline_color = Color(0, 0.5882353, 1, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_5ysmq"]
 font = ExtResource("2_oo0fn")
 font_color = Color(0, 0, 0, 1)
 outline_size = 5
@@ -17,32 +23,37 @@ offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_ahhtf")
 
-[node name="Score" type="Label" parent="."]
-layout_mode = 1
-offset_left = 26.0
-offset_right = 245.0
-offset_bottom = 42.0
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 11.0
+offset_right = 135.0
+offset_bottom = 88.0
+
+[node name="Score" type="Label" parent="VBoxContainer"]
+layout_mode = 2
 theme_override_fonts/font = ExtResource("2_oo0fn")
 text = "SCORE: "
 label_settings = SubResource("LabelSettings_oo0fn")
 vertical_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
-layout_mode = 0
-offset_left = 18.0
-offset_top = 21.0
-offset_right = 122.0
-offset_bottom = 70.0
+[node name="Timer" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "TIMER: "
+label_settings = SubResource("LabelSettings_5ysmq")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
 alignment = 1
 
-[node name="Life1" parent="HBoxContainer" instance=ExtResource("3_5ysmq")]
+[node name="Life1" parent="VBoxContainer/HBoxContainer" instance=ExtResource("3_5ysmq")]
 layout_mode = 2
 stretch_mode = 3
 
-[node name="Life2" parent="HBoxContainer" instance=ExtResource("3_5ysmq")]
+[node name="Life2" parent="VBoxContainer/HBoxContainer" instance=ExtResource("3_5ysmq")]
 layout_mode = 2
 stretch_mode = 3
 
-[node name="Life3" parent="HBoxContainer" instance=ExtResource("3_5ysmq")]
+[node name="Life3" parent="VBoxContainer/HBoxContainer" instance=ExtResource("3_5ysmq")]
 layout_mode = 2
 stretch_mode = 3
