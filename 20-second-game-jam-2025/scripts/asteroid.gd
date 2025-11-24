@@ -14,8 +14,23 @@ enum AsteroidSize{LARGE, MEDIUM, SMALL}
 @onready var asteroid = $Sprite2D
 @onready var collision = $CollisionShape2D
 
+var points: int:
+	get:
+		match size:
+			AsteroidSize.LARGE:
+				return 100
+			
+			AsteroidSize.MEDIUM:
+				return 150
+				
+			AsteroidSize.SMALL:
+				return 200
+				
+			_:
+				return 0
+
 # SIGNALS
-signal exploded(position, size)
+signal exploded(position, size, points)
 
 func _ready():
 	rotation = randf_range(0, 2 * PI)
@@ -52,5 +67,5 @@ func _physics_process(delta: float) -> void:
 		global_position.x = -radius
 
 func _explode():
-	emit_signal("exploded", global_position, size)
+	emit_signal("exploded", global_position, size, points)
 	queue_free()

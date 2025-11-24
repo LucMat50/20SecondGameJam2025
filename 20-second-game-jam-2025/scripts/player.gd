@@ -3,6 +3,7 @@ extends CharacterBody2D
 # NORMAL VARIABLES
 var shoot_coolDown = false
 var angy = false
+var lives = 3
 
 # EXPORT VARIABLES
 @export var speed = 400
