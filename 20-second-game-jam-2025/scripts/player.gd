@@ -1,5 +1,9 @@
 extends CharacterBody2D
 
+# NORMAL VARIABLES
+var shoot_coolDown = false
+var angy = false
+
 # EXPORT VARIABLES
 @export var speed = 400
 @export var rotation_speed = 100
@@ -7,6 +11,7 @@ extends CharacterBody2D
 
 # ONREADY VARIABLES
 @onready var shooter = $Shooter
+@onready var ship = $Sprite2D
 
 # SCENES
 var bullet_scene = preload("res://scenes/bullet.tscn")
@@ -16,7 +21,16 @@ signal bullet_shot(bullet)
 
 func _process(_delta: float) -> void:
 	if Input.is_action_pressed("shoot"):
-		shoot_bullet()
+		angy = true
+		if !shoot_coolDown:
+			shoot_coolDown = true
+			shoot_bullet()
+			await get_tree().create_timer(0.1).timeout
+			shoot_coolDown = false
+	else:
+		angy = false
+	
+	angy_face()
 
 func _physics_process(delta):
 	var input_vector = Vector2(0, Input.get_axis("move_up", "move_down"))
@@ -51,3 +65,9 @@ func shoot_bullet():
 	heckYe.global_position = shooter.global_position
 	heckYe.rotation = rotation
 	emit_signal("bullet_shot", heckYe)
+
+func angy_face():
+	if angy:
+		ship.frame = 1
+	else:
+		ship.frame = 0
