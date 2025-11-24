@@ -1,13 +1,19 @@
 extends Node2D
 
-var score = 0
 @onready var bullets = $Bullets
 @onready var player = $Player
 @onready var asteroids = $Asteroids
+@onready var hud = $UI/HUD
 
 var asteroid_scene = preload("res://scenes/asteroid.tscn")
 
+var score := 0:
+	set(value):
+		score = value
+		hud.score = score
+
 func _ready():
+	score = 0
 	player.connect("bullet_shot", _on_player_bullet_shot)
 	
 	for asteroid in asteroids.get_children():
@@ -28,7 +34,6 @@ func _on_asteroid_exploded(pos, size, points):
 				
 			Asteroid.AsteroidSize.SMALL:
 				pass
-		print(score)
 
 func _spawn_more(pos, size):
 	var another = asteroid_scene.instantiate()

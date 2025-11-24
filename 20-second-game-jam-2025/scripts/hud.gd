@@ -2,4 +2,4 @@ extends Control
 
 @onready var score = $Score:
 	set(value):
-		pass
+		score.text = "SCORE: " + str(value)
