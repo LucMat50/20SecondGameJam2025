@@ -50,5 +50,5 @@ func _on_player_died():
 	lives -= 1
 	print(lives)
 	if lives <= 0:
-		print("game over")
+		get_tree().change_scene_to_file("res://scenes/game_over.tscn")
 		pass

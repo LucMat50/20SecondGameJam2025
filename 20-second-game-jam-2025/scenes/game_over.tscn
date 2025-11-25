@@ -1,0 +1,108 @@
+[gd_scene load_steps=14 format=3 uid="uid://b41p7uf1if2fi"]
+
+[ext_resource type="Script" uid="uid://c75lyeq8xvt0c" path="res://scripts/game_over.gd" id="1_wqhvx"]
+[ext_resource type="FontFile" uid="uid://cwqwdy7461r4y" path="res://assets/PressStart2P-Regular.ttf" id="1_xeevv"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_wqhvx"]
+font = ExtResource("1_xeevv")
+font_size = 50
+font_color = Color(0, 0, 0, 1)
+outline_size = 10
+outline_color = Color(1, 0.31814677, 0.42274922, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wqhvx"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tbwuq"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_v3hpu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_irg28"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2jtsn"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_racf3"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7m3ot"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8bugq"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wawo4"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_56v3a"]
+
+[node name="Game Over" type="Control"]
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+grow_horizontal = 2
+script = ExtResource("1_wqhvx")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -317.5
+offset_right = 317.5
+offset_bottom = 317.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "GAME OVER"
+label_settings = SubResource("LabelSettings_wqhvx")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -79.0
+offset_top = 291.5
+offset_right = 79.0
+offset_bottom = 459.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 33
+alignment = 1
+
+[node name="Retry" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+focus_neighbor_right = NodePath("../Quit")
+focus_neighbor_bottom = NodePath("../Quit")
+theme_override_colors/font_color = Color(0, 0.42352942, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 0.31764707, 0.42352942, 1)
+theme_override_fonts/font = ExtResource("1_xeevv")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxEmpty_wqhvx")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_tbwuq")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_v3hpu")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_irg28")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_2jtsn")
+action_mode = 0
+button_mask = 0
+text = "RETRY"
+icon_alignment = 1
+
+[node name="Quit" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0.42352942, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 0.31764707, 0.42352942, 1)
+theme_override_fonts/font = ExtResource("1_xeevv")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxEmpty_racf3")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_7m3ot")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_8bugq")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_wawo4")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_56v3a")
+action_mode = 0
+text = "QUIT"
+icon_alignment = 1
+
+[connection signal="pressed" from="VBoxContainer/Retry" to="." method="_on_retry_pressed"]
+[connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_quit_pressed"]
