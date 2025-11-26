@@ -1,9 +1,46 @@
-[gd_scene load_steps=5 format=3 uid="uid://dcqr5gi5i5ncn"]
+[gd_scene load_steps=9 format=3 uid="uid://dcqr5gi5i5ncn"]
 
 [ext_resource type="Script" uid="uid://dms67abwk14sv" path="res://scripts/main_game.gd" id="1_72e8q"]
 [ext_resource type="PackedScene" uid="uid://vhbebbbfm2e4" path="res://scenes/player.tscn" id="1_s3esy"]
 [ext_resource type="PackedScene" uid="uid://c4oy5tkixvo7t" path="res://scenes/hud.tscn" id="2_0rdsr"]
 [ext_resource type="PackedScene" uid="uid://ceyv1v2yxulx0" path="res://scenes/asteroid.tscn" id="3_d2op2"]
+[ext_resource type="PackedScene" uid="uid://b41p7uf1if2fi" path="res://scenes/game_over.tscn" id="3_ipu61"]
+
+[sub_resource type="Animation" id="Animation_ipu61"]
+resource_name = "fade_out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.11304883, 0.11304883, 0.11304883, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_ygxny"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.11304883, 0.11304883, 0.11304883, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wi4c7"]
+_data = {
+&"RESET": SubResource("Animation_ygxny"),
+&"fade_out": SubResource("Animation_ipu61")
+}
 
 [node name="main_game" type="Node2D"]
 script = ExtResource("1_72e8q")
@@ -11,6 +48,9 @@ script = ExtResource("1_72e8q")
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="HUD" parent="UI" instance=ExtResource("2_0rdsr")]
+
+[node name="Game Over" parent="UI" instance=ExtResource("3_ipu61")]
+visible = false
 
 [node name="Player" parent="." instance=ExtResource("1_s3esy")]
 position = Vector2(320, 320)
@@ -36,3 +76,15 @@ position = Vector2(467, 546)
 
 [node name="Asteroid6" parent="Asteroids" instance=ExtResource("3_d2op2")]
 position = Vector2(44, 37)
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+modulate = Color(1, 1, 1, 0)
+color = Color(0.11304883, 0.11304883, 0.11304883, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasModulate"]
+libraries = {
+&"": SubResource("AnimationLibrary_wi4c7")
+}
+
+[connection signal="stop_timer" from="." to="UI/HUD" method="_on_main_game_stop_timer"]
+[connection signal="animation_finished" from="CanvasModulate/AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

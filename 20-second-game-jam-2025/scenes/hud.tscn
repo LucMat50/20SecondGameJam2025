@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://c4oy5tkixvo7t"]
+[gd_scene load_steps=5 format=3 uid="uid://c4oy5tkixvo7t"]
 
 [ext_resource type="Script" uid="uid://bw3co0kxg0gwp" path="res://scripts/hud.gd" id="1_ahhtf"]
 [ext_resource type="FontFile" uid="uid://cwqwdy7461r4y" path="res://assets/PressStart2P-Regular.ttf" id="2_oo0fn"]
-[ext_resource type="PackedScene" uid="uid://dfv3woh73hi2s" path="res://scenes/life.tscn" id="3_5ysmq"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_oo0fn"]
 font = ExtResource("2_oo0fn")
@@ -29,6 +28,7 @@ offset_left = 18.0
 offset_top = 11.0
 offset_right = 135.0
 offset_bottom = 88.0
+theme_override_constants/separation = 10
 
 [node name="Score" type="Label" parent="VBoxContainer"]
 layout_mode = 2
@@ -42,18 +42,9 @@ layout_mode = 2
 text = "TIMER: "
 label_settings = SubResource("LabelSettings_5ysmq")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+[node name="Lives" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="Life1" parent="VBoxContainer/HBoxContainer" instance=ExtResource("3_5ysmq")]
-layout_mode = 2
-stretch_mode = 3
-
-[node name="Life2" parent="VBoxContainer/HBoxContainer" instance=ExtResource("3_5ysmq")]
-layout_mode = 2
-stretch_mode = 3
-
-[node name="Life3" parent="VBoxContainer/HBoxContainer" instance=ExtResource("3_5ysmq")]
-layout_mode = 2
-stretch_mode = 3
+[node name="WorldTimer" type="Timer" parent="."]
+wait_time = 21.0

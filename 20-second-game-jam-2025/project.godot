@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="20SecondGameJam2025"
-run/main_scene="uid://dcqr5gi5i5ncn"
+run/main_scene="uid://d3a1n2v1gumbs"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
 

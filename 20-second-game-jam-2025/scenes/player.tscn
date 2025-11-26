@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://vhbebbbfm2e4"]
+[gd_scene load_steps=10 format=3 uid="uid://vhbebbbfm2e4"]
 
 [ext_resource type="Texture2D" uid="uid://pmqvrmdcyubm" path="res://assets/Player.png" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://bp2undcyj643i" path="res://scripts/player.gd" id="1_g2els"]
@@ -32,7 +32,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.5, 1, 1.5, 2),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+"values": [Color(1, 1, 1, 1), Color(1, 0.31764707, 0.42352942, 1), Color(1, 1, 1, 1), Color(1, 0.31764707, 0.42352942, 1), Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qlg0r"]
@@ -43,6 +43,16 @@ _data = {
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3vyb7"]
 radius = 7.0
+
+[sub_resource type="Gradient" id="Gradient_qhqgy"]
+offsets = PackedFloat32Array(0, 0.24, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_dqkch"]
+gradient = SubResource("Gradient_qhqgy")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.8294392, 0.26401868)
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
 scale = Vector2(2, 2)
@@ -63,11 +73,15 @@ libraries = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_3vyb7")
 
-[node name="PointLight2D" type="PointLight2D" parent="."]
-position = Vector2(0, -71.5)
-scale = Vector2(0.2, 0.2)
-color = Color(0, 0, 1, 1)
+[node name="Vision" type="PointLight2D" parent="."]
+position = Vector2(0, -85.95)
+scale = Vector2(0.2, 0.24508582)
+color = Color(1, 0.31764707, 0.42352942, 1)
+energy = 3.95
 texture = ExtResource("3_qhqgy")
+
+[node name="PlayerLight" type="PointLight2D" parent="."]
+texture = SubResource("GradientTexture2D_dqkch")
 
 [node name="Shooter" type="Node2D" parent="."]
 position = Vector2(0, -7.5)

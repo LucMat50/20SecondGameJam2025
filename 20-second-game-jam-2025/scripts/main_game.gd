@@ -4,19 +4,34 @@ extends Node2D
 @onready var player = $Player
 @onready var asteroids = $Asteroids
 @onready var hud = $UI/HUD
+@onready var game_over = $"UI/Game Over"
+@onready var canvasMod = $CanvasModulate/AnimationPlayer
 
 var asteroid_scene = preload("res://scenes/asteroid.tscn")
 var player_scene = preload("res://scenes/player.tscn")
 
-var lives = 3
+var lives = 3:
+	set(value):
+		lives = value
+		hud.init_lives(lives)
+		
 var score := 0:
 	set(value):
 		score = value
 		hud.score = score
 
+var timer := 20:
+	set(value):
+		timer = value
+		hud.timer = timer
+
+signal stop_timer
+
 func _ready():
 	score = 0
 	lives = 3
+	game_over.hide()
+	canvasMod.play("RESET")
 	player.connect("bullet_shot", _on_player_bullet_shot)
 	player.connect("died", _on_player_died)
 	
@@ -50,5 +65,10 @@ func _on_player_died():
 	lives -= 1
 	print(lives)
 	if lives <= 0:
-		get_tree().change_scene_to_file("res://scenes/game_over.tscn")
-		pass
+		emit_signal("stop_timer")
+		canvasMod.play("fade_out")
+		player.set_process_mode(Node.PROCESS_MODE_DISABLED)
+
+func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+	if anim_name == "fade_out":
+		game_over._show_screen()

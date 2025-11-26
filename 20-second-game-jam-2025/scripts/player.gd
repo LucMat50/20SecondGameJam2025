@@ -22,7 +22,6 @@ var bullet_scene = preload("res://scenes/bullet.tscn")
 # SIGNALS
 signal bullet_shot(bullet)
 signal died
-#signal blink_finished
 
 func _process(_delta: float) -> void:
 	if Input.is_action_pressed("shoot"):
