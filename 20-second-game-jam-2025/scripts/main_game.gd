@@ -53,16 +53,18 @@ func _on_player_bullet_shot(bullet):
 func _on_asteroid_exploded(pos, size, points):
 	$AsteroidSound.play()
 	score += points
-	for i in range(2):
+	for i in randi_range(1, 3):
 		match size:
 			Asteroid.AsteroidSize.LARGE:
 				_spawn_more(pos, Asteroid.AsteroidSize.MEDIUM)
 				
 			Asteroid.AsteroidSize.MEDIUM:
 				_spawn_more(pos, Asteroid.AsteroidSize.SMALL)
-				
+	
+	for i in range(1, 2):
+		match size:			
 			Asteroid.AsteroidSize.SMALL:
-				pass
+				_spawn_large()
 
 func _spawn_more(pos, size):
 	var another = asteroid_scene.instantiate()
@@ -70,6 +72,13 @@ func _spawn_more(pos, size):
 	another.size = size
 	another.connect("exploded", _on_asteroid_exploded)
 	asteroids.add_child(another)
+
+func _spawn_large():
+	var large = asteroid_scene.instantiate()
+	large.global_position = Vector2(randi_range(0, 640), randi_range(640, 620))
+	large.size = Asteroid.AsteroidSize.LARGE
+	large.connect("exploded", _on_asteroid_exploded)
+	asteroids.add_child(large)
 
 func _on_player_died():
 	lives -= 1

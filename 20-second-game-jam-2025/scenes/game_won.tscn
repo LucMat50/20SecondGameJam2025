@@ -106,6 +106,7 @@ alignment = 1
 layout_mode = 2
 focus_neighbor_right = NodePath("../Quit")
 focus_neighbor_bottom = NodePath("../Quit")
+mouse_behavior_recursive = 1
 theme_override_colors/font_color = Color(0, 0.42352942, 1, 1)
 theme_override_colors/font_focus_color = Color(1, 0.31764707, 0.42352942, 1)
 theme_override_colors/font_pressed_color = Color(0, 0.42352942, 1, 1)
@@ -123,6 +124,7 @@ icon_alignment = 1
 
 [node name="Quit" type="Button" parent="VBoxContainer2"]
 layout_mode = 2
+mouse_behavior_recursive = 1
 theme_override_colors/font_color = Color(0, 0.42352942, 1, 1)
 theme_override_colors/font_focus_color = Color(1, 0.31764707, 0.42352942, 1)
 theme_override_colors/font_pressed_color = Color(0, 0.42352942, 1, 1)
