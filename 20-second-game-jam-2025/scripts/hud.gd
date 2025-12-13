@@ -9,6 +9,11 @@ extends Control
 
 @onready var lives = $VBoxContainer/Lives
 
+@onready var canvasMod = $/root/main_game/CanvasModulate/AnimationPlayer
+@onready var player = $/root/main_game/Player
+
+signal player_won
+
 var life_scene = preload("res://scenes/life.tscn")
 
 func init_lives(amount):
@@ -30,6 +35,10 @@ func _time_left():
 func _process(_delta: float) -> void:
 	countDown.text = "TIMER: %02d" % _time_left()
 
-
 func _on_main_game_stop_timer() -> void:
 	timer.paused = true
+
+func _on_world_timer_timeout() -> void:
+	player.set_process_mode(Node.PROCESS_MODE_DISABLED)
+	canvasMod.play("fade_out")
+	emit_signal("player_won")

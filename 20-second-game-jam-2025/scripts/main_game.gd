@@ -1,10 +1,13 @@
 extends Node2D
 
+const SAVEFILE = "user://savefile.save"
+
 @onready var bullets = $Bullets
 @onready var player = $Player
 @onready var asteroids = $Asteroids
 @onready var hud = $UI/HUD
 @onready var game_over = $"UI/Game Over"
+@onready var game_won = $UI/Winner
 @onready var canvasMod = $CanvasModulate/AnimationPlayer
 
 var asteroid_scene = preload("res://scenes/asteroid.tscn")
@@ -19,15 +22,20 @@ var score := 0:
 	set(value):
 		score = value
 		hud.score = score
+		game_won.score = score
 
-var timer := 20:
+var high_score := 0:
 	set(value):
-		timer = value
-		hud.timer = timer
+		high_score = value
+		game_won.high_score = high_score
+
+var current_score = 0
+var player_won = false
 
 signal stop_timer
 
 func _ready():
+	_load_score()
 	score = 0
 	lives = 3
 	game_over.hide()
@@ -39,9 +47,11 @@ func _ready():
 		asteroid.connect("exploded", _on_asteroid_exploded)
 	
 func _on_player_bullet_shot(bullet):
+	$LaserSound.play()
 	bullets.add_child(bullet)
 
 func _on_asteroid_exploded(pos, size, points):
+	$AsteroidSound.play()
 	score += points
 	for i in range(2):
 		match size:
@@ -69,6 +79,30 @@ func _on_player_died():
 		canvasMod.play("fade_out")
 		player.set_process_mode(Node.PROCESS_MODE_DISABLED)
 
+func _on_hud_player_won() -> void:
+	player_won = true
+
+func _save_score() -> void:
+	var file = FileAccess.open(SAVEFILE, FileAccess.WRITE_READ)
+	if file:
+		file.store_32(high_score)
+
+func _load_score() -> void:
+	var file = FileAccess.open(SAVEFILE, FileAccess.READ)
+	if FileAccess.file_exists(SAVEFILE):
+		high_score = file.get_32()
+
+func _update_high_score() -> void:
+	if score > high_score:
+		high_score = score
+		_save_score()
+
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "fade_out":
-		game_over._show_screen()
+		if lives <= 0:
+			game_over._show_screen()
+			print(high_score)
+		elif player_won:
+			_update_high_score()
+			game_won._show_screen()
+			print(high_score)

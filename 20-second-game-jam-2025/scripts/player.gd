@@ -52,7 +52,6 @@ func _physics_process(delta):
 	
 	move_and_slide()
 	
-	
 	var screen_size = get_viewport_rect().size
 	if global_position.y < -200:
 		global_position.y = screen_size.y + 200
@@ -89,7 +88,6 @@ func respawn(pos):
 		global_position = pos
 		velocity = Vector2.ZERO
 		collision.set_deferred("disabled", false)
-
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "blink":

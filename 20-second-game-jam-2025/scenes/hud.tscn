@@ -48,3 +48,6 @@ alignment = 1
 
 [node name="WorldTimer" type="Timer" parent="."]
 wait_time = 21.0
+one_shot = true
+
+[connection signal="timeout" from="WorldTimer" to="." method="_on_world_timer_timeout"]
