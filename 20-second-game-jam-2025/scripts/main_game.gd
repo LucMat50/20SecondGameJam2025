@@ -81,6 +81,7 @@ func _spawn_large():
 	asteroids.add_child(large)
 
 func _on_player_died():
+	$LostLifeSound.play()
 	lives -= 1
 	print(lives)
 	if lives <= 0:

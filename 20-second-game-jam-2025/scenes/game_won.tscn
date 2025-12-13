@@ -1,8 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://cvi56jfqus1sr"]
+[gd_scene load_steps=17 format=3 uid="uid://cvi56jfqus1sr"]
 
 [ext_resource type="Script" uid="uid://c0ru1cho7uqsc" path="res://scripts/game_won.gd" id="1_bb2ko"]
 [ext_resource type="FontFile" uid="uid://cwqwdy7461r4y" path="res://assets/PressStart2P-Regular.ttf" id="2_xh1nx"]
 [ext_resource type="AudioStream" uid="uid://fa320d514sgq" path="res://sounds/yippee.mp3" id="3_xh1nx"]
+[ext_resource type="AudioStream" uid="uid://dmi6yws2outct" path="res://sounds/button_pressed.mp3" id="4_b0vlw"]
+[ext_resource type="AudioStream" uid="uid://cu3ghd0imas8u" path="res://sounds/button_select.mp3" id="5_8qx7a"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_wqhvx"]
 font = ExtResource("2_xh1nx")
@@ -142,5 +144,13 @@ icon_alignment = 1
 [node name="Yippee" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_xh1nx")
 
+[node name="ButtonPress" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_b0vlw")
+
+[node name="ButtonSelect" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_8qx7a")
+
+[connection signal="focus_exited" from="VBoxContainer2/Retry" to="." method="_on_retry_focus_exited"]
 [connection signal="pressed" from="VBoxContainer2/Retry" to="." method="_on_retry_pressed"]
+[connection signal="focus_exited" from="VBoxContainer2/Quit" to="." method="_on_quit_focus_exited"]
 [connection signal="pressed" from="VBoxContainer2/Quit" to="." method="_on_quit_pressed"]

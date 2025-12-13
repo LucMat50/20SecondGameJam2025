@@ -1,7 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://b41p7uf1if2fi"]
+[gd_scene load_steps=17 format=3 uid="uid://b41p7uf1if2fi"]
 
 [ext_resource type="Script" uid="uid://c75lyeq8xvt0c" path="res://scripts/game_over.gd" id="1_wqhvx"]
 [ext_resource type="FontFile" uid="uid://cwqwdy7461r4y" path="res://assets/PressStart2P-Regular.ttf" id="1_xeevv"]
+[ext_resource type="AudioStream" uid="uid://c6vuxjvsm4kat" path="res://sounds/game_over.mp3" id="3_7m3ot"]
+[ext_resource type="AudioStream" uid="uid://dmi6yws2outct" path="res://sounds/button_pressed.mp3" id="3_racf3"]
+[ext_resource type="AudioStream" uid="uid://cu3ghd0imas8u" path="res://sounds/button_select.mp3" id="4_7m3ot"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_wqhvx"]
 font = ExtResource("1_xeevv")
@@ -106,5 +109,16 @@ action_mode = 0
 text = "QUIT"
 icon_alignment = 1
 
+[node name="GameOver" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_7m3ot")
+
+[node name="ButtonPress" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_racf3")
+
+[node name="ButtonSelect" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_7m3ot")
+
+[connection signal="focus_exited" from="VBoxContainer/Retry" to="." method="_on_retry_focus_exited"]
 [connection signal="pressed" from="VBoxContainer/Retry" to="." method="_on_retry_pressed"]
+[connection signal="focus_exited" from="VBoxContainer/Quit" to="." method="_on_quit_focus_exited"]
 [connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_quit_pressed"]

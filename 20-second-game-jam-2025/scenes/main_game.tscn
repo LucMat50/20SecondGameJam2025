@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dcqr5gi5i5ncn"]
+[gd_scene load_steps=13 format=3 uid="uid://dcqr5gi5i5ncn"]
 
 [ext_resource type="Script" uid="uid://dms67abwk14sv" path="res://scripts/main_game.gd" id="1_72e8q"]
 [ext_resource type="PackedScene" uid="uid://vhbebbbfm2e4" path="res://scenes/player.tscn" id="1_s3esy"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://cvi56jfqus1sr" path="res://scenes/game_won.tscn" id="4_70vka"]
 [ext_resource type="AudioStream" uid="uid://brg21vsf2a2wv" path="res://sounds/laser.wav" id="6_ygxny"]
 [ext_resource type="AudioStream" uid="uid://bum0baebfen46" path="res://sounds/asteroid.wav" id="7_wi4c7"]
+[ext_resource type="AudioStream" uid="uid://bhoojgr5dedkm" path="res://sounds/lost_life.mp3" id="9_2l77h"]
 
 [sub_resource type="Animation" id="Animation_ygxny"]
 length = 0.001
@@ -97,6 +98,9 @@ stream = ExtResource("6_ygxny")
 
 [node name="AsteroidSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_wi4c7")
+
+[node name="LostLifeSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_2l77h")
 
 [connection signal="stop_timer" from="." to="UI/HUD" method="_on_main_game_stop_timer"]
 [connection signal="player_won" from="UI/HUD" to="." method="_on_hud_player_won"]
